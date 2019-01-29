@@ -1,4 +1,4 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component, FormEvent, Dispatch } from 'react';
 import { Course } from '../../models/course';
 import { connect, DispatchProp } from 'react-redux';
 import { State } from '../../store/state';
@@ -8,7 +8,11 @@ export interface CourseState {
     course: Course;
 }
 
-export class CoursesContainer extends Component<DispatchProp, CourseState> {
+export interface CourseDispatchProp {
+    createCourse: (course: Course) => void;
+}
+
+export class CoursesContainer extends Component<State & CourseDispatchProp, CourseState> {
     state: CourseState = {
         course: { title: "" }
     }
@@ -24,13 +28,18 @@ export class CoursesContainer extends Component<DispatchProp, CourseState> {
     }
 
     onClickSave = () => {
-        this.props.dispatch(courseActions.createCourse(this.state.course));
+        this.props.createCourse(this.state.course);
+    }
+
+    courseRow(course: Course, index: number) {
+        return <div key={index}>{course.title}</div>
     }
 
     render() {
         return (
             <div>
                 <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
                 <h2>Add course</h2>
 
                 <input onChange={this.onTitleChange}
@@ -43,10 +52,16 @@ export class CoursesContainer extends Component<DispatchProp, CourseState> {
     }
 }
 
-function mapStateToProps(state: State, ownProps: any) {
+function mapStateToProps(state: State, ownProps: any): State {
     return {
         courses: state.courses
     }
 }
 
-export default connect(mapStateToProps)(CoursesContainer);
+function mapDispatchToProps(dispatch: Dispatch<courseActions.CourseActions>): CourseDispatchProp {
+    return {
+        createCourse: (course: Course) => dispatch(courseActions.createCourse(course))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesContainer);
