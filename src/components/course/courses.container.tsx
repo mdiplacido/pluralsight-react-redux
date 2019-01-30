@@ -1,8 +1,8 @@
 import React, { Component, Dispatch, FormEvent } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators, AnyAction, Action } from "redux";
+import { AnyAction, bindActionCreators } from "redux";
 
-import { CourseActionCreator, CourseActionCreatorFactory, CourseActions } from "../../actions/course.actions";
+import { CourseActionCreator, CourseActionCreatorFactory } from "../../actions/course.actions";
 import { Course } from "../../models/course";
 import { State } from "../../store/state";
 
@@ -11,7 +11,7 @@ export interface CourseState {
 }
 
 export interface CourseDispatchProp {
-    createCourse: (course: Course) => void;
+    actions: CourseActionCreator;
 }
 
 export class CoursesContainer extends Component<State & CourseDispatchProp, CourseState> {
@@ -30,7 +30,7 @@ export class CoursesContainer extends Component<State & CourseDispatchProp, Cour
     }
 
     onClickSave = () => {
-        this.props.createCourse(this.state.course);
+        this.props.actions.createCourse(this.state.course);
     }
 
     courseRow(course: Course, index: number) {
@@ -60,9 +60,11 @@ function mapStateToProps(state: State, ownProps: any): State {
     }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AnyAction>): CourseActionCreator {
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>): CourseDispatchProp {
     // todo: why do we have to cast dispatch to any.  kind of goofy.
-    return bindActionCreators(CourseActionCreatorFactory(), dispatch as any);
+    return { 
+       actions: bindActionCreators(CourseActionCreatorFactory(), dispatch as any)
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesContainer);
