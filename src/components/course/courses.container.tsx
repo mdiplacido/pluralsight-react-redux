@@ -1,8 +1,10 @@
-import React, { Component, FormEvent, Dispatch } from 'react';
-import { Course } from '../../models/course';
-import { connect, DispatchProp } from 'react-redux';
-import { State } from '../../store/state';
-import * as courseActions from '../../actions/course.actions';
+import React, { Component, Dispatch, FormEvent } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators, AnyAction, Action } from "redux";
+
+import { CourseActionCreator, CourseActionCreatorFactory, CourseActions } from "../../actions/course.actions";
+import { Course } from "../../models/course";
+import { State } from "../../store/state";
 
 export interface CourseState {
     course: Course;
@@ -58,10 +60,9 @@ function mapStateToProps(state: State, ownProps: any): State {
     }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<courseActions.CourseActions>): CourseDispatchProp {
-    return {
-        createCourse: (course: Course) => dispatch(courseActions.createCourse(course))
-    }
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>): CourseActionCreator {
+    // todo: why do we have to cast dispatch to any.  kind of goofy.
+    return bindActionCreators(CourseActionCreatorFactory(), dispatch as any);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesContainer);

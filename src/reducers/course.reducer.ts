@@ -1,5 +1,5 @@
 import { Course } from './../models/course';
-import { CourseActions, CourseActionTypes } from '../actions/course.actions';
+import { CourseActionTypes, CourseActions } from '../actions/course.actions';
 
 export default function courseReducer(state: Course[] = [], action: CourseActions) {
     switch (action.type) {
