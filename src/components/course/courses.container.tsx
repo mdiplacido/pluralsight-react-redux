@@ -15,22 +15,8 @@ export interface CourseDispatchProp {
 }
 
 export class CoursesContainer extends Component<State & CourseDispatchProp, CourseState> {
-    state: CourseState = {
-        course: { title: "" }
-    }
-
     constructor(props: any, context: React.Context<any>) {
         super(props, context);
-    }
-
-    onTitleChange = (event: FormEvent<HTMLInputElement>) => {
-        const course = this.state.course;
-        course.title = event.currentTarget.value;
-        this.setState({ course });
-    }
-
-    onClickSave = () => {
-        this.props.actions.createCourse(this.state.course);
     }
 
     courseRow(course: Course, index: number) {
@@ -42,13 +28,6 @@ export class CoursesContainer extends Component<State & CourseDispatchProp, Cour
             <div>
                 <h1>Courses</h1>
                 {this.props.courses.map(this.courseRow)}
-                <h2>Add course</h2>
-
-                <input onChange={this.onTitleChange}
-                    type="text"
-                    value={this.state.course.title} />
-
-                <input type="submit" value="save" onClick={this.onClickSave} />
             </div>
         )
     }

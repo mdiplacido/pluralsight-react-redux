@@ -1,14 +1,22 @@
-import * as serviceWorker from './serviceWorker';
-import App from './App';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import configureStore from './store/configure-store';
-import { Provider } from 'react-redux';
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.css";
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+import { loadCourses } from "./actions/course.actions";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import configureStore from "./store/configure-store";
 
 const store = configureStore();
+
+const loadAction = loadCourses();
+
+// TODO: what is the proper cast for this?
+store.dispatch(loadAction as any);
 
 ReactDOM.render(
     <Provider store={store}>

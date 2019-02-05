@@ -1,29 +1,39 @@
-import { ActionCreatorsMapObject, AnyAction } from "redux";
+import { ActionCreatorsMapObject, AnyAction, Dispatch } from "redux";
 
 import { Course } from "../models/course";
 
+import courseApi from "../api/mockCourseAPI";
+
 export enum CourseActionTypes {
-    CreateCourse = "CREATE_COURSE",
+    LoadCoursesSuccess = "LOAD_COURSES_SUCCESS",
 }
 
-export interface CreateCourseAction extends AnyAction {
-    type: CourseActionTypes.CreateCourse,
-    course: Course
+export interface LoadCoursesSuccessAction extends AnyAction {
+    type: CourseActionTypes.LoadCoursesSuccess,
+    courses: Course[]
 }
 
-export function createCourse(course: Course): CreateCourseAction {
+export function loadCoursesSuccess(courses: Course[]): LoadCoursesSuccessAction {
  return {
-    type: CourseActionTypes.CreateCourse, 
-    course
+    type: CourseActionTypes.LoadCoursesSuccess, 
+    courses: courses
  };
 }
 
+export function loadCourses() {
+    return (dispatch: Dispatch) => {
+        return courseApi.getAllCourses()
+                .then(courses => dispatch(loadCoursesSuccess(courses)))
+                .catch(err => { throw(err) });
+    };
+}
+
 export interface CourseActionCreator extends ActionCreatorsMapObject<CourseActions> {
-    createCourse: (course: Course) => CreateCourseAction;
+    loadCoursesSuccess: (courses: Course[]) => LoadCoursesSuccessAction;
 }
 
 export const CourseActionCreatorFactory: () => CourseActionCreator = () => ({
-    createCourse
+    loadCoursesSuccess: loadCoursesSuccess
 });
 
-export type CourseActions = CreateCourseAction;
+export type CourseActions = LoadCoursesSuccessAction;
