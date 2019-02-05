@@ -16,8 +16,10 @@ export interface CourseDispatchProp {
 }
 
 export class CoursesContainer extends Component<CourseContainerProps & CourseDispatchProp> {
-    constructor(props: CourseContainerProps & CourseDispatchProp, context: React.Context<any>) {
-        super(props, context);
+    // TODO: investigate context.  apparently it is deprecated in favor of new Provider context pattern
+    // https://reactjs.org/docs/context.html
+    constructor(props: CourseContainerProps & CourseDispatchProp) {
+        super(props);
     }
 
     render() {
