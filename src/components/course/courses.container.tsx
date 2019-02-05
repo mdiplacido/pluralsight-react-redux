@@ -5,35 +5,34 @@ import { AnyAction, bindActionCreators } from "redux";
 import { CourseActionCreator, CourseActionCreatorFactory } from "../../actions/course.actions";
 import { Course } from "../../models/course";
 import { State } from "../../store/state";
+import CourseList from "./course-list";
 
-export interface CourseState {
-    course: Course;
+export interface CourseContainerProps {
+    courses: Course[];
 }
 
 export interface CourseDispatchProp {
     actions: CourseActionCreator;
 }
 
-export class CoursesContainer extends Component<State & CourseDispatchProp, CourseState> {
-    constructor(props: any, context: React.Context<any>) {
+export class CoursesContainer extends Component<CourseContainerProps & CourseDispatchProp> {
+    constructor(props: CourseContainerProps & CourseDispatchProp, context: React.Context<any>) {
         super(props, context);
     }
 
-    courseRow(course: Course, index: number) {
-        return <div key={index}>{course.title}</div>
-    }
-
     render() {
+        const { courses } = this.props;
+
         return (
             <div>
                 <h1>Courses</h1>
-                {this.props.courses.map(this.courseRow)}
+                <CourseList courses={courses}></CourseList>
             </div>
         )
     }
 }
 
-function mapStateToProps(state: State, ownProps: any): State {
+function mapStateToProps(state: State, ownProps: any): CourseContainerProps {
     return {
         courses: state.courses
     }
