@@ -11,8 +11,8 @@ export const AppRoutes = () => {
         <Switch>
             <Route path="/about" component={AboutContainer} />
             <Route path="/home" component={HomeContainer} />
-            <Route path="/course" component={ManageCoursePage} />
             <Route path="/course/:id" component={ManageCoursePage} />
+            <Route path="/course" component={ManageCoursePage} />
             <Route path="/courses" component={CoursesContainer} />
             <Route component={HomeContainer} />
         </Switch>
