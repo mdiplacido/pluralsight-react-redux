@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 
 import { Course } from "../../models/course";
 import SelectInput from "../common/select-input";
@@ -13,7 +13,7 @@ export interface CourseFormProps {
     course: Course;
     allAuthors: AuthorForDropDown[];
     onSave: () => void;
-    onChange: () => void;
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     loading: boolean;
     errors: {
         title?: string;

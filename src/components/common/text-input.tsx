@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 
 export interface TextInputProps {
     name: string;
     label: string;
-    onChange: () => void;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
     value: string;
     error: string;

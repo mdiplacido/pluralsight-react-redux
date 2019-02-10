@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { ChangeEvent, Component } from "react";
+import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { CourseActionCreatorFactory, CourseActionCreator } from "../../actions/course.actions";
-import { State } from "../../store/state";
-import { connect } from "react-redux";
-import CourseForm, { AuthorForDropDown } from "./course-form";
+import { CourseActionCreator, CourseActionCreatorFactory } from "../../actions/course.actions";
 import { Course } from "../../models/course";
+import { State } from "../../store/state";
+import CourseForm, { AuthorForDropDown } from "./course-form";
 
 export interface ManageCoursePageDispatchProp {
     actions: CourseActionCreator;
@@ -52,8 +52,15 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
 
   }
 
-  onChange = () => {
-
+  onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const field = event.target.name;
+    const value = event.target.value;
+    this.setState(prev => ({
+        course: {
+            ...prev.course,
+            [field]: value
+        }
+    }));
   }
 }
 
