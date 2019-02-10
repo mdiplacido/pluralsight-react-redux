@@ -1,12 +1,17 @@
-import React from 'react'
-import { Course } from '../../models/course';
-import { Author } from '../../models/author';
-import TextInput from '../common/text-input';
-import SelectInput from '../common/select-input';
+import React from "react";
+
+import { Course } from "../../models/course";
+import SelectInput from "../common/select-input";
+import TextInput from "../common/text-input";
+
+export interface AuthorForDropDown {
+    value: string;
+    text: string;
+}
 
 export interface CourseFormProps {
     course: Course;
-    allAuthors: Author[];
+    allAuthors: AuthorForDropDown[];
     onSave: () => void;
     onChange: () => void;
     loading: boolean;

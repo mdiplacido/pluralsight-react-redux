@@ -28,7 +28,7 @@ const generateId = (author: Author) => {
 };
 
 class AuthorApi {
-  static getAllAuthors() {
+  static getAllAuthors(): Promise<Author[]> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], authors));

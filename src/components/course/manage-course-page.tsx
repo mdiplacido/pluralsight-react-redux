@@ -4,7 +4,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import { CourseActionCreatorFactory, CourseActionCreator } from "../../actions/course.actions";
 import { State } from "../../store/state";
 import { connect } from "react-redux";
-import CourseForm from "./course-form";
+import CourseForm, { AuthorForDropDown } from "./course-form";
 import { Course } from "../../models/course";
 
 export interface ManageCoursePageDispatchProp {
@@ -13,6 +13,7 @@ export interface ManageCoursePageDispatchProp {
 
 export interface MangeCoursePageProps extends ManageCoursePageDispatchProp {
     course: Course;
+    authors: AuthorForDropDown[];
 }
 
 export interface ManageCoursePageState {
@@ -22,7 +23,7 @@ export interface ManageCoursePageState {
     }
 }
 
-export class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageState> {
+class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageState> {
     constructor(props: MangeCoursePageProps) {
         super(props);
         this.state = {
@@ -37,7 +38,7 @@ export class ManageCoursePage extends Component<MangeCoursePageProps, ManageCour
       <div>
         <h1>Manage Course</h1>
         <CourseForm 
-            allAuthors={[]} 
+            allAuthors={this.props.authors} 
             course={this.state.course} 
             errors={this.state.errors} 
             onSave={this.onSave} 
@@ -63,9 +64,12 @@ function mapDispatchToProps(dispatch: Dispatch) {
 }
 
 function mapStateToProps(state: State, ownProps: any): ManageCoursePageState {
+    debugger;
     const course: Course = { id: "", watchHref: "", title: "", authorId: "", length: "", category: "" };
+    const authorsFormattedForDropdown: AuthorForDropDown[] = state.authors.map(a => ({ value: a.id, text: `${a.firstName} ${a.lastName}`}));
     return {
         course,
+        authors: authorsFormattedForDropdown
     } as Partial<ManageCoursePageState> as ManageCoursePageState;
 }
 

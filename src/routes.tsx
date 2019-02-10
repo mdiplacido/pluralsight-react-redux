@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 
 import { AboutContainer } from "./components/about/about.container";
 import CoursesContainer from "./components/course/courses.container";
-import { ManageCoursePage } from "./components/course/manage-course-page";
+import ManageCoursePage from "./components/course/manage-course-page";
 import HomeContainer from "./components/home/home.container";
 
 export const AppRoutes = () => {

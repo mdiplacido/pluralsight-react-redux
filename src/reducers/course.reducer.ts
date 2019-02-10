@@ -1,7 +1,7 @@
-import { Course } from './../models/course';
-import { CourseActionTypes, CourseActions } from '../actions/course.actions';
+import { CourseActions, CourseActionTypes } from "../actions/course.actions";
+import initialState from "./initial-state";
 
-export default function courseReducer(state: Course[] = [], action: CourseActions) {
+export default function courseReducer(state = initialState.courses, action: CourseActions) {
     switch (action.type) {
         case CourseActionTypes.LoadCoursesSuccess:
             return action.courses;

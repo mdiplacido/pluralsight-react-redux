@@ -10,13 +10,16 @@ import { loadCourses } from "./actions/course.actions";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import configureStore from "./store/configure-store";
+import { loadAuthors } from "./actions/author.actions";
 
 const store = configureStore();
 
-const loadAction = loadCourses();
+const loadCoursesAction = loadCourses();
+const loadAuthorsAction = loadAuthors();
 
 // TODO: what is the proper cast for this?
-store.dispatch(loadAction as any);
+store.dispatch(loadCoursesAction as any);
+store.dispatch(loadAuthorsAction as any);
 
 ReactDOM.render(
     <Provider store={store}>
