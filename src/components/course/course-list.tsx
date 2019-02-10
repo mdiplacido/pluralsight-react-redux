@@ -1,29 +1,34 @@
-import React from 'react'
-import { Course } from '../../models/course';
-import CourseListRow from './course-list-row';
+import React from "react";
+
+import { Course } from "../../models/course";
+import CourseListRow from "./course-list-row";
 
 export interface ICourseListProps {
-    courses: Course[];
+  courses: Course[];
 }
 
 const CourseList = (props: ICourseListProps) => {
   return (
-    <table className="table">
-      <thead>
+    <React.Fragment>
+      <br/>
+      <br/>
+      <table className="table">
+        <thead>
           <tr>
-              <th>&nbsp;</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Category</th>
-              <th>Length</th>
+            <th>&nbsp;</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Length</th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           {
-              props.courses.map(course => <CourseListRow key={course.id} course={course}></CourseListRow>)
+            props.courses.map(course => <CourseListRow key={course.id} course={course}></CourseListRow>)
           }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </React.Fragment>
   )
 };
 

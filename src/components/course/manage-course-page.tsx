@@ -6,6 +6,7 @@ import { CourseActionCreator, CourseActionCreatorFactory } from "../../actions/c
 import { Course } from "../../models/course";
 import { State } from "../../store/state";
 import CourseForm, { AuthorForDropDown } from "./course-form";
+import { withRouter, RouteComponentProps } from "react-router";
 
 export interface ManageCoursePageDispatchProp {
     actions: CourseActionCreator;
@@ -23,8 +24,8 @@ export interface ManageCoursePageState {
     }
 }
 
-class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageState> {
-    constructor(props: MangeCoursePageProps) {
+class ManageCoursePage extends Component<MangeCoursePageProps & RouteComponentProps, ManageCoursePageState> {
+    constructor(props: MangeCoursePageProps & RouteComponentProps) {
         super(props);
         this.state = {
             course: { ...props.course },
@@ -51,6 +52,7 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
   onSave = (event: FormEvent) => {
     event.preventDefault();  // kind of dumb.  we are preventing the submit, really that should be hidden from this consumer
     this.props.actions.saveCourse(this.state.course);
+    this.props.history.push("/courses");
   }
 
   onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -80,4 +82,4 @@ function mapStateToProps(state: State, ownProps: any): ManageCoursePageState {
     } as Partial<ManageCoursePageState> as ManageCoursePageState;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage));
