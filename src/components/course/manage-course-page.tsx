@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from "react";
+import React, { ChangeEvent, Component, FormEvent } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -48,8 +48,9 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
     )
   }
 
-  onSave = () => {
-
+  onSave = (event: FormEvent) => {
+    event.preventDefault();  // kind of dumb.  we are preventing the submit, really that should be hidden from this consumer
+    this.props.actions.saveCourse(this.state.course);
   }
 
   onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -71,7 +72,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
 }
 
 function mapStateToProps(state: State, ownProps: any): ManageCoursePageState {
-    debugger;
     const course: Course = { id: "", watchHref: "", title: "", authorId: "", length: "", category: "" };
     const authorsFormattedForDropdown: AuthorForDropDown[] = state.authors.map(a => ({ value: a.id, text: `${a.firstName} ${a.lastName}`}));
     return {

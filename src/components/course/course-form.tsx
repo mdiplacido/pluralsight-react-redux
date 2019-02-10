@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import React, { ChangeEvent, ChangeEventHandler, FormEvent } from "react";
 
 import { Course } from "../../models/course";
 import SelectInput from "../common/select-input";
@@ -12,7 +12,7 @@ export interface AuthorForDropDown {
 export interface CourseFormProps {
     course: Course;
     allAuthors: AuthorForDropDown[];
-    onSave: () => void;
+    onSave: (event: FormEvent) => void;
     onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     loading: boolean;
     errors: {
@@ -28,41 +28,43 @@ const CourseForm = (props: CourseFormProps) => {
 
     return (
         <div>
-            <TextInput
-                name="title"
-                label="Title"
-                value={course.title}
-                onChange={onChange}
-                error={errors && errors.title || ""} />
+            <form onSubmit={onSave}>
+                <TextInput
+                    name="title"
+                    label="Title"
+                    value={course.title}
+                    onChange={onChange}
+                    error={errors && errors.title || ""} />
 
-            <SelectInput
-                name="authorId"
-                label="Author"
-                value={course.authorId}
-                defaultOption="Select Author"
-                options={allAuthors as any}
-                onChange={onChange}
-                error={errors && errors.authorId || ""} />
+                <SelectInput
+                    name="authorId"
+                    label="Author"
+                    value={course.authorId}
+                    defaultOption="Select Author"
+                    options={allAuthors as any}
+                    onChange={onChange}
+                    error={errors && errors.authorId || ""} />
 
-            <TextInput
-                name="category"
-                label="Category"
-                value={course.category}
-                onChange={onChange}
-                error={errors && errors.category || ""} />
+                <TextInput
+                    name="category"
+                    label="Category"
+                    value={course.category}
+                    onChange={onChange}
+                    error={errors && errors.category || ""} />
 
-            <TextInput
-                name="length"
-                label="Length"
-                value={course.length}
-                onChange={onChange}
-                error={errors && errors.length || ""} />
+                <TextInput
+                    name="length"
+                    label="Length"
+                    value={course.length}
+                    onChange={onChange}
+                    error={errors && errors.length || ""} />
 
-            <input
-                type="submit"
-                disabled={loading}
-                value={loading ? 'Saving...' : 'Save'}
-                className="btn btn-primary" />
+                <input
+                    type="submit"
+                    disabled={loading}
+                    value={loading ? 'Saving...' : 'Save'}
+                    className="btn btn-primary" />
+            </form>
         </div>
     )
 }
