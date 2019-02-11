@@ -3,7 +3,7 @@ import { ActionCreatorsMapObject, AnyAction, Dispatch } from "redux";
 import { Course } from "../models/course";
 
 import courseApi from "../api/mockCourseAPI";
-import { beginAjaxCall } from "./ajax.actions";
+import { beginAjaxCall, ajaxCallError } from "./ajax.actions";
 
 export enum CourseActionTypes {
     LoadCoursesSuccess = "LOAD_COURSES_SUCCESS",
@@ -52,7 +52,7 @@ export function loadCourses() {
         dispatch(beginAjaxCall());
         return courseApi.getAllCourses()
             .then(courses => dispatch(loadCoursesSuccess(courses)))
-            .catch(err => { throw (err) });
+            .catch(e => { dispatch(ajaxCallError()); throw(e); });
     };
 }
 
@@ -63,8 +63,8 @@ export function saveCourse(course: Course) {
             .then(c => course.id ?
                 dispatch(updateCourseSuccess(c)) :
                 dispatch(createCourseSuccess(c)))
-            .catch(e => { throw (e); });
-    };
+            .catch(e => { dispatch(ajaxCallError()); throw(e); });
+    };  
 }
 
 export interface CourseActionCreator extends ActionCreatorsMapObject<CourseActions | Promise<CourseActions>> {

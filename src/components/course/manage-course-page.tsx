@@ -69,10 +69,13 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
         this.setState({ saving: true });
         this.props.actions.saveCourse(this.state.course)
             .then(() => {
-                this.setState({ saving: false });
                 toastr.success("Course Saved!");
                 this.props.history.push("/courses");
             })
+            .catch(err => toastr.error(err))
+            .finally(() => {
+                this.setState( { saving: false });
+            });
     }
 
     onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
