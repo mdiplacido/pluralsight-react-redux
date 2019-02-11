@@ -36,7 +36,7 @@ export default class LoadingDots extends Component<LoadingDotsProps, LoadingDots
 
     render() {
         let size = this.state.frame % (this.props.dots + 1)
-        const text = (new Array(size)).fill(".").join("");
+        const text = ".".repeat(size);
         return (
             <span {...this.props}>{text}&nbsp;</span>
         )
