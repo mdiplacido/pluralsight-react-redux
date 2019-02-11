@@ -1,6 +1,7 @@
 import { AnyAction, ActionCreatorsMapObject, Dispatch } from "redux";
 import { Author } from "../models/author";
 import authorApi from "../api/mockAuthorAPI";
+import { beginAjaxCall } from "./ajax.actions";
 
 export enum AuthorActionTypes {
     LoadAuthorsSuccess = "LOAD_AUTHORS_SUCCESS",
@@ -20,6 +21,7 @@ export function loadAuthorsSuccess(authors: Author[]): LoadAuthorsSuccessAction 
 
 export function loadAuthors() {
     return (dispatch: Dispatch) => {
+        dispatch(beginAjaxCall());
         return authorApi.getAllAuthors()
                 .then(authors => dispatch(loadAuthorsSuccess(authors)))
                 .catch(err => { throw(err) });

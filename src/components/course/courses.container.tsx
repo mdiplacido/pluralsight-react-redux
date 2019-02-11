@@ -19,8 +19,8 @@ export interface CourseDispatchProp {
 class CoursesContainer extends Component<CourseContainerProps & CourseDispatchProp & RouteComponentProps> {
     // TODO: investigate context.  apparently it is deprecated in favor of new Provider context pattern
     // https://reactjs.org/docs/context.html
-    constructor(props: CourseContainerProps & CourseDispatchProp & RouteComponentProps) {
-        super(props);
+    constructor(props: CourseContainerProps & CourseDispatchProp & RouteComponentProps, context: any) {
+        super(props, context);
     }
 
     redirectToAddCourse = () => this.props.history.push("/course");
@@ -41,6 +41,7 @@ class CoursesContainer extends Component<CourseContainerProps & CourseDispatchPr
 
 function mapStateToProps(state: State, ownProps: any): CourseContainerProps {
     return {
+        ...ownProps,
         courses: state.courses
     }
 }

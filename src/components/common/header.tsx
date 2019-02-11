@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LoadingDots from './loading-dots';
 
-const Header = () => {
+export interface HeaderProps {
+    loading: boolean;
+}
+
+const Header = (props: HeaderProps) => {
     return (
         <nav>
             <NavLink to="/home" activeClassName="active">Home</NavLink>
@@ -10,7 +14,10 @@ const Header = () => {
             <NavLink to="/courses" activeClassName="active">Courses</NavLink>
             {" | "}
             <NavLink to="/about" activeClassName="active">About</NavLink>
-            <LoadingDots dots={20} interval={100} />
+            {
+                props.loading &&
+                <LoadingDots dots={20} interval={100} />
+            }
         </nav>
     )
 }

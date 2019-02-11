@@ -3,6 +3,7 @@ import { ActionCreatorsMapObject, AnyAction, Dispatch } from "redux";
 import { Course } from "../models/course";
 
 import courseApi from "../api/mockCourseAPI";
+import { beginAjaxCall } from "./ajax.actions";
 
 export enum CourseActionTypes {
     LoadCoursesSuccess = "LOAD_COURSES_SUCCESS",
@@ -48,6 +49,7 @@ export function updateCourseSuccess(course: Course): UpdateCourseSuccessAction {
 
 export function loadCourses() {
     return (dispatch: Dispatch) => {
+        dispatch(beginAjaxCall());
         return courseApi.getAllCourses()
             .then(courses => dispatch(loadCoursesSuccess(courses)))
             .catch(err => { throw (err) });
@@ -56,6 +58,7 @@ export function loadCourses() {
 
 export function saveCourse(course: Course) {
     return (dispatch: Dispatch) => {
+        dispatch(beginAjaxCall());
         return courseApi.saveCourse(course)
             .then(c => course.id ?
                 dispatch(updateCourseSuccess(c)) :

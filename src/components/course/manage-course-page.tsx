@@ -25,8 +25,8 @@ export interface ManageCoursePageState {
 }
 
 class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageState> {
-    constructor(props: MangeCoursePageProps) {
-        super(props);
+    constructor(props: MangeCoursePageProps, context: any) {
+        super(props, context);
         this.state = {
             course: { ...props.course },
             errors: {
@@ -91,6 +91,7 @@ function mapStateToProps(state: State, ownProps: MangeCoursePageProps): ManageCo
 
     const authorsFormattedForDropdown: AuthorForDropDown[] = state.authors.map(a => ({ value: a.id, text: `${a.firstName} ${a.lastName}` }));
     return {
+        ...ownProps,
         course,
         authors: authorsFormattedForDropdown
     } as Partial<ManageCoursePageState> as ManageCoursePageState;
