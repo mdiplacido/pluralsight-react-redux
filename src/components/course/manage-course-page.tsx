@@ -19,6 +19,7 @@ export interface MangeCoursePageProps extends ManageCoursePageDispatchProp, Rout
 
 export interface ManageCoursePageState {
     course: Course,
+    saving: boolean;
     errors: {
         title?: string;
     }
@@ -29,6 +30,7 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
         super(props, context);
         this.state = {
             course: { ...props.course },
+            saving: false,
             errors: {
             }
         };
@@ -42,7 +44,7 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
         // and all components that need that state either wait until it is true or failed, in the meantime a spinny
         // would show.
         if (this.props.course.id !== prevProps.course.id) {
-            this.setState({ course: { ...this.props.course }});
+            this.setState({ course: { ...this.props.course } });
         }
     }
 
@@ -56,15 +58,19 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
                     errors={this.state.errors}
                     onSave={this.onSave}
                     onChange={this.onChange}
-                    loading={false} />
+                    saving={this.state.saving} />
             </div>
         )
     }
 
     onSave = (event: FormEvent) => {
         event.preventDefault();  // kind of dumb.  we are preventing the submit, really that should be hidden from this consumer
-        this.props.actions.saveCourse(this.state.course);
-        this.props.history.push("/courses");
+        this.setState({ saving: true });
+        this.props.actions.saveCourse(this.state.course)
+            .then(() => {
+                this.setState({ saving: false });
+                this.props.history.push("/courses");
+            })
     }
 
     onChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

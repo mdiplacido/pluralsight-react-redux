@@ -14,7 +14,7 @@ export interface CourseFormProps {
     allAuthors: AuthorForDropDown[];
     onSave: (event: FormEvent) => void;
     onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    loading: boolean;
+    saving: boolean;
     errors: {
         title?: string;
         category?: string;
@@ -24,7 +24,7 @@ export interface CourseFormProps {
 }
 
 const CourseForm = (props: CourseFormProps) => {
-    const { course, allAuthors, onSave, onChange, loading, errors } = props;
+    const { course, allAuthors, onSave, onChange, errors, saving } = props;
 
     return (
         <div>
@@ -61,8 +61,8 @@ const CourseForm = (props: CourseFormProps) => {
 
                 <input
                     type="submit"
-                    disabled={loading}
-                    value={loading ? 'Saving...' : 'Save'}
+                    disabled={saving}
+                    value={saving ? 'Saving...' : 'Save'}
                     className="btn btn-primary" />
             </form>
         </div>
