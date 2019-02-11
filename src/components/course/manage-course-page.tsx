@@ -7,6 +7,7 @@ import { Course } from "../../models/course";
 import { State } from "../../store/state";
 import CourseForm, { AuthorForDropDown } from "./course-form";
 import { withRouter, RouteComponentProps } from "react-router";
+import toastr from "toastr";
 
 export interface ManageCoursePageDispatchProp {
     actions: CourseActionCreator;
@@ -69,6 +70,7 @@ class ManageCoursePage extends Component<MangeCoursePageProps, ManageCoursePageS
         this.props.actions.saveCourse(this.state.course)
             .then(() => {
                 this.setState({ saving: false });
+                toastr.success("Course Saved!");
                 this.props.history.push("/courses");
             })
     }

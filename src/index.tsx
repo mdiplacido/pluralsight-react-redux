@@ -11,6 +11,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import configureStore from "./store/configure-store";
 import { loadAuthors } from "./actions/author.actions";
+import "../node_modules/toastr/build/toastr.min.css";
 
 const store = configureStore();
 
