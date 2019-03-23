@@ -3,18 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cspayments/pidl-react": "^0.1.1-alpha.31",
+    "@microsoft-commerce/purchase-blends-component-library": "file:../CXG.Commerce.UI.PurchaseBlends/component.library/microsoft-commerce-purchase-blends-component-library-0.11.8.tgz",
     "@types/jest": "23.3.12",
     "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
+    "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "office-ui-fabric-react": "^6.159.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-intl": "^2.8.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",
+    "react-ts-strap": "^0.1.24",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "toastr": "^2.1.4",
     "typescript": "3.2.2"
   },
@@ -34,6 +41,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/react-intl": "^2.3.17",
     "@types/react-redux": "^7.0.1",
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-immutable-state-invariant": "^2.1.0",

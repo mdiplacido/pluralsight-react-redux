@@ -13,6 +13,10 @@ const Header = (props: HeaderProps) => {
             {" | "}
             <NavLink to="/courses" activeClassName="active">Courses</NavLink>
             {" | "}
+            <NavLink to="/cart" activeClassName="active">Cart</NavLink>
+            {" | "}
+            <NavLink to="/checkout" activeClassName="active">Checkout</NavLink>
+            {" | "}                        
             <NavLink to="/about" activeClassName="active">About</NavLink>
             {
                 props.loading &&
